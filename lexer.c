@@ -23,7 +23,7 @@ typedef struct {
   unsigned int jmp_position;
 } token;
 
-char *parser(char *file_dir) {
+char *create_code_buff(char *file_dir) {
   FILE *fptr = fopen(file_dir, "r");
   if (fptr == NULL) {
     puts("ERROR: Could not read the file!!!");
@@ -47,11 +47,11 @@ char *parser(char *file_dir) {
         return NULL;
       }
     }
-    switch (current_ch) {
-    case 43 || 44 || 45 || 46 || 74 || 76 || 91 || 93:
+    if (current_ch == 43 || current_ch == 44 || current_ch == 45 ||
+        current_ch == 46 || current_ch == 74 || current_ch == 76 ||
+        current_ch == 91 || current_ch == 93) {
       code_buffer[index] = current_ch;
       index++;
-      break;
     }
   }
 
