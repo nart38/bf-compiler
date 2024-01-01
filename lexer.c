@@ -55,12 +55,12 @@ char *create_code_buff(char *file_dir) {
     }
   }
 
-  // code_buffer = reallocarray(code_buffer, index + 1, sizeof(char));
-  // if (code_buffer == NULL) {
-  //   puts("ERROR: re-allocating array failed!!!");
-  //   return NULL;
-  // }
-  // code_buffer[index] = 0;
+  code_buffer = reallocarray(code_buffer, index + 1, sizeof(char));
+  if (code_buffer == NULL) {
+    puts("ERROR: re-allocating array failed!!!");
+    return NULL;
+  }
+  code_buffer[index] = 0;
 
   fclose(fptr);
   return code_buffer;
