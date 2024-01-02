@@ -19,5 +19,6 @@ typedef struct {
 } token;
 
 char *create_code_buff(char *file_dir);
-
+// TODO: token* calculate_jump_pos(toke* token_buffer);
+token create_token(token_kind kind, unsigned int pos);
 #endif

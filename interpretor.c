@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     file_dir = argv[1];
     break;
   default:
-    puts("Only expect 1 argument as file directory.");
+    puts("Interpretor was expecting only 1 argument as file directory.");
     return 1;
   }
 
