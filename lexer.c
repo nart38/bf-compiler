@@ -54,10 +54,32 @@ token create_token(token_kind kind, unsigned int pos) {
   return t;
 }
 
-// TODO
-// token* calculate_jump_pos(toke* token_buffer){
-//   return token_buffer;
-// }
+token *calculate_jump_pos(token *token_buffer, unsigned int buffer_len) {
+  int pair_counter = 0;
+  for (int i = 0; i < buffer_len; ++i) {
+    if (token_buffer[i].kind == LOOP_START) {
+      pair_counter = 1;
+      for (int j = i; j < buffer_len; ++j) {
+        if (token_buffer[j].kind == LOOP_START) {
+          pair_counter++;
+          continue;
+        } else if (token_buffer[j].kind == LOOP_END) {
+          pair_counter--;
+        }
+        if (pair_counter == 0) {
+          token_buffer[i].jmp_position = j;
+          token_buffer[j].jmp_position = i;
+          break;
+        }
+        if ((j == (buffer_len - 1) && pair_counter > 0) || (pair_counter < 0)) {
+          puts("ERROR: There is an upaired '[' or ']'");
+          return NULL;
+        }
+      }
+    }
+  }
+  return token_buffer;
+}
 
 token *create_token_buff(char *code_buffer) {
   unsigned int code_len = strlen(code_buffer);
@@ -96,6 +118,6 @@ token *create_token_buff(char *code_buffer) {
       break;
     }
   }
-
+  token_buffer = calculate_jump_pos(token_buffer, code_len);
   return token_buffer;
 }
