@@ -59,7 +59,7 @@ token *calculate_jump_pos(token *token_buffer, unsigned int buffer_len) {
   for (int i = 0; i < buffer_len; ++i) {
     if (token_buffer[i].kind == LOOP_START) {
       pair_counter = 1;
-      for (int j = i; j < buffer_len; ++j) {
+      for (int j = i + 1; j < buffer_len; ++j) {
         if (token_buffer[j].kind == LOOP_START) {
           pair_counter++;
           continue;
